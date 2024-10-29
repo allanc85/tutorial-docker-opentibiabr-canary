@@ -18,7 +18,7 @@ Para criação deste documento, e do meu primeiro servidor, utilizei as informa�
 
 ## Estrutura de Arquivos
 
-Crie a seguinte estrutura de arquivos abaixo no diretório de sua preferência:
+Crie a estrutura de arquivos abaixo no diretório de sua preferência:
 
 <img src="assets/image-20241020182127097.png" alt="image-20241020182127097" style="zoom:67%;" />
 
@@ -40,9 +40,9 @@ Segue estrutura em formato texto:
 
 #### Arquivo binário
 
-Para gerar o binário, é necessário compilar o projeto. Para isso, favor seguir o passo  `2 - Installation Canary:` do tutorial **[Linux] Canary + Nginx + MariaDB + MyAAC**, disponível no endereço https://docs.opentibiabr.com/opentibiabr/projects/canary/getting-started/linux/linux-canary-+-nginx-+-mariadb-+-myaac#id-2-installation-canary.
+Para gerar o binário, é necessário compilar o projeto. Para isso, favor seguir o passo  `2 - Installation Canary` do tutorial **[Linux] Canary + Nginx + MariaDB + MyAAC**, disponível no endereço https://docs.opentibiabr.com/opentibiabr/projects/canary/getting-started/linux/linux-canary-+-nginx-+-mariadb-+-myaac#id-2-installation-canary.
 
-Após gerar o binário, copie-o para o diretório diretório `data/server/bin` e conceda permissão de execução. Para isso, execute o seguinte comando no terminal:
+Após gerar o binário, copie-o para o diretório `data/server/bin` e conceda permissão de execução. Para isso, execute o seguinte comando no terminal:
 
 ```shell
 chmod +x ~/Canary/data/server/bin/canary
@@ -54,7 +54,7 @@ O diretório ficará assim:
 
 <img src="assets/image-20241020173404227.png" alt="image-20241020173404227" style="zoom:67%;" />
 
-#### Dados e configurações do servidor
+#### Configurações e Dados do servidor
 
 Vamos precisar clonar o projeto `https://github.com/opentibiabr/canary` no diretório `data/server/data`. Podemos fazer isso de 2 formas:
 
@@ -74,7 +74,7 @@ Vamos precisar clonar o projeto `https://github.com/opentibiabr/canary` no diret
 
    ![image-20241020171844325](assets/image-20241020171844325.png)
 
-   Extraia o conteúdo do arquivo baixado no diretório `data/server/data`.
+   Extraia o conteúdo do arquivo no diretório `data/server/data`.
 
 O diretório ficará assim:
 
@@ -104,11 +104,9 @@ O diretório ficará assim:
 
 ## Banco de Dados
 
-Finalmente, vamos criar nosso primeiro container: O MariaDB!
-
 Está na hora de colocar a mão na massa e preparar o banco de dados do servidor.
 
-Basicamente, precisamos informar, em uma variável de ambiente, o nome da instância do banco de dados (`MARIADB_DATABASE`), a credencial do usuário que será criado junto com o container (`MARIADB_USER` e `MARIADB_PASSWORD`) e a senha do super usuário (`MARIADB_ROOT_PASSWORD`). Para mais detalhes, acesso o endereço https://hub.docker.com/_/mariadb.
+Basicamente, precisamos informar o nome da instância do banco de dados (`MARIADB_DATABASE`), a credencial do usuário que será criado junto com o container (`MARIADB_USER` e `MARIADB_PASSWORD`) e a senha do super usuário (`MARIADB_ROOT_PASSWORD`). Para mais detalhes, acesso o endereço https://hub.docker.com/_/mariadb.
 
 Neste tutorial, vamos utilizar o usuário `canary` e a senha `<canary_user_password>`. Para o usuário `root`, estaremos usando a senha `<mariadb_root_password>`.
 
@@ -128,7 +126,7 @@ MARIADB_ROOT_PASSWORD=<mariadb_root_password>
 
 ### Iniciando o container
 
-Em seguida, altere o arquivo `docker-compose.yml`, conforme exibido a seguir:
+Altere o arquivo `docker-compose.yml`, conforme exibido a seguir:
 
 ```yaml
 services:
@@ -147,6 +145,7 @@ services:
 Para iniciar o container, acesse o diretório `docker` e execute o seguinte comando no terminal:
 
 ```shell
+cd ~/Canary/docker
 docker compose up
 ```
 
@@ -178,7 +177,7 @@ Dentro do container, execute o seguinte comando para importar o schema no banco 
 mariadb -u root -p canary_db < /tmp/schema.sql
 ```
 
-Informe a senha do usuario `ROOT` (variável `MARIADB_ROOT_PASSWORD`):
+Informe a senha do usuario `ROOT` (variável `MARIADB_ROOT_PASSWORD`) e pressione `ENTER`:
 
 <img src="assets/image-20241020213029094.png" alt="image-20241020213029094" style="zoom:67%;" />
 
@@ -206,7 +205,7 @@ O tutorial **[Linux] Canary + Nginx + MariaDB + MyAAC** também aborda este item
 
 Para criação deste tutorial, os seguintes passos foram executados:
 
-1. Copie o arquivo `data/server/data/config.lua.dist` para `data/server/data/config.lua` e ajuste as devidas configurações.
+1. Copie o arquivo `data/server/data/config.lua.dist` para `data/server/data/config.lua`.
 
 2. Altere os seguintes parâmetros, no arquivo `config.lua`:
 
@@ -249,7 +248,7 @@ Para criação deste tutorial, os seguintes passos foram executados:
 
 ### Criando imagem docker
 
-Vamos criar uma imagem simples, apenas com o algumas bibliotecas básicas, e mapeamento dos volumes necessários (`bin` e `data`). Dessa forma, não precisaremos nos preocupar em criar outras imagens docker com as atualizações.
+Vamos criar uma imagem com as bibliotecas necessárias para rodar o servidor, e com o mapeamento do volume `data`. Dessa forma, não precisaremos nos preocupar em criar outras imagens docker com as atualizações.
 
 Primeiro, precisamos criar o `Dockerfile` do servidor. Abra o arquivo `docker/Dockerfile.server` e adicione o seguinte conteúdo:
 
@@ -338,7 +337,7 @@ A lista de personagens da conta será exibida. Escolha um personagem qualquer e 
 
 <img src="assets/image-20241020225256432.png" alt="image-20241020225256432" style="zoom: 50%;" />
 
-Pronto! O acesso ao servidor foi executado com sucesso!!!
+Pronto! O acesso ao servidor foi realizado com sucesso!!!
 
 ![image-20241020224938888](assets/image-20241020224938888.png)
 
@@ -346,7 +345,7 @@ Agora, só falta uma coisa... Entrar nos bueiros de `Thais` e se preparar para e
 
 <img src="assets/image-20241020225610737.png" alt="image-20241020225610737" style="zoom:50%;" />
 
-Brincadeira, vamos para a próxima e última etapa: Configurar o MyAAC.
+Brincadeira, vamos para a próxima e última etapa deste tutorial: Configurar o MyAAC.
 
 ## MyAAC
 
@@ -395,7 +394,7 @@ docker build -t koalan/opentibiabr_myaac:latest -f Dockerfile.myaac .
 
 Agora, vamos adicionar o container do MyAAC, usando a imagem criada no passo anterior.
 
-Em resumo, precisamos mapear o diretório com os dados e configurações (`data/myaac`) e o binário do servidor (`data/server/bin/canary`). Para isso, vamos editar o arquivo `docker-compose.yml`, conforme exibido a seguir:
+Em resumo, precisamos mapear o diretório com as configurações (`data/myaac`). Para isso, vamos editar o arquivo `docker-compose.yml`, conforme exibido a seguir:
 
 ```yaml
 services:
@@ -438,7 +437,7 @@ services:
 >
 > ⚠️ Lembre-se de alterar o nome da imagem docker
 
-Volte para o terminal que está executando o `docker compose`, pressione `Ctrl + C` para parar a execução, e execute novamente, com o comando:
+Volte para o terminal que está executando o `docker compose`, pressione `Ctrl + C` para parar a execução, e execute, novamente, o comando:
 
 ```shell
 docker compose up
@@ -470,7 +469,7 @@ Aguarde a atualização do banco de dados, e clique em `Next`:
 
 <img src="assets/image-20241025212132536.png" alt="image-20241025212132536" style="zoom:50%;" />
 
-Informe os dados para criação da conta e personagem do Admin. Clique em `Next`:
+Informe os dados para criação da conta e personagem do Administrador. Clique em `Next`:
 
 <img src="assets/image-20241025212342468.png" alt="image-20241025212342468" style="zoom:50%;" />
 
@@ -478,7 +477,7 @@ Aguarde a atualização do MyAAC:
 
 <img src="assets/image-20241025212401803.png" alt="image-20241025212401803" style="zoom: 50%;" />
 
-Conforme solicitado, elimine o diretório `data/myaac/install`:
+Por fim, elimine o diretório `data/myaac/install`, conforme solicitado:
 
 <img src="assets/image-20241025212523700.png" alt="image-20241025212523700" style="zoom:50%;" />
 
@@ -497,7 +496,7 @@ Caso o MyAAC apresente a mensagem **Server Offline**, e o IP do servidor for loc
 Abra o arquivo `data/myaac/config.php` e informe o nome do container do server (`tibia_canary_server`) na configuração `status_ip`:
 
 ```php
-	'status_ip' => 'tibia_canary_server',
+'status_ip' => 'tibia_canary_server',
 ```
 
 Ao atualizar a página, o status do servidor será corrigido e a quantidade de usuários online será exibida:
@@ -512,7 +511,7 @@ A página admin estará disponível no endereço http://localhost/admin/:
 
 ## Conclusão
 
-Se você chegou até aqui, quer dizer que o servidor está funcionando.
+Se você chegou até aqui, espero que tenha conseguido subir o servidor Canary e o MyAAC, e que ambos estejam funcionando.
 
 Ficamos felizes em te ajudar nessa jornada!
 
