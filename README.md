@@ -82,11 +82,11 @@ O diretório ficará assim:
 
 ### MyAAC (data/myaac)
 
-Vamos precisar clonar o projeto `https://github.com/opentibiabr/myaac` no diretório `data/myaac`. Da mesma forma que no passo anterior, podemos fazer isso de 2 formas:
+Vamos precisar clonar o projeto `https://github.com/opentibiabr/myaac` no diretório `data/myaac` para que possamos usar os arquivos no container (volume). Da mesma forma que no passo anterior, podemos fazer isso de 2 formas:
 
 1. **GIT**:
 
-   Execute o seguinte comando, para clonar o repositório no diretório local:
+   Execute o seguinte comando para clonar o repositório no diretório local:
 
    ```bash
    git clone https://github.com/opentibiabr/myaac.git ~/Canary/data/myaac/
