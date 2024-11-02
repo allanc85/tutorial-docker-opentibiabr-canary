@@ -82,7 +82,7 @@ O diretório ficará assim:
 
 ### MyAAC (data/myaac)
 
-Vampos precisar clonar o projeto `https://github.com/opentibiabr/myaac` no diretório `data/myaac/data`. Da mesma forma que no passo anterior, podemos fazer isso de 2 formas:
+Vamos precisar clonar o projeto `https://github.com/opentibiabr/myaac` no diretório `data/myaac`. Da mesma forma que no passo anterior, podemos fazer isso de 2 formas:
 
 1. **GIT**:
 
